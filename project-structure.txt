@@ -1,0 +1,17 @@
+portfolio-mern/
+├── client/
+│   ├── public/
+│   └── src/
+│       ├── components/
+│       ├── pages/
+│       ├── redux/
+│       ├── App.jsx
+│       └── index.jsx
+└── server/
+    ├── config/
+    ├── controllers/
+    ├── middleware/
+    ├── models/
+    ├── routes/
+    └── server.js
+
