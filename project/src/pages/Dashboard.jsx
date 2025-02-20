@@ -20,7 +20,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import { useToast } from '@/hooks/use-toast';
+import { toast } from 'sonner';
 import {
   setProjects,
   addProject,
@@ -54,6 +54,13 @@ function ProjectForm({ project, onSubmit, onCancel }) {
     e.preventDefault();
     onSubmit(formData);
   };
+
+  useEffect(() => {
+    toast.warning('Success', {
+      description: 'Logged in successfully',
+      closeButton: true,
+    });
+  });
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
@@ -142,7 +149,6 @@ function Dashboard() {
   const dispatch = useDispatch();
   const { projects } = useSelector((state) => state.projects);
   const { token } = useSelector((state) => state.auth);
-  const { toast } = useToast();
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -173,8 +179,7 @@ function Dashboard() {
           }
         );
         dispatch(updateProject(response.data));
-        toast({
-          title: 'Success',
+        toast.success('Success', {
           description: 'Project updated successfully',
         });
       } else {
@@ -186,18 +191,15 @@ function Dashboard() {
           }
         );
         dispatch(addProject(response.data));
-        toast({
-          title: 'Success',
+        toast.success('Success', {
           description: 'Project added successfully',
         });
       }
       setIsDialogOpen(false);
       setSelectedProject(null);
     } catch (error) {
-      toast({
-        title: 'Error',
+      toast.error('Error', {
         description: error.response?.data?.message || 'Operation failed',
-        variant: 'destructive',
       });
     }
   };
@@ -208,15 +210,12 @@ function Dashboard() {
         headers: { Authorization: `Bearer ${token}` },
       });
       dispatch(deleteProject(id));
-      toast({
-        title: 'Success',
+      toast.success('Success', {
         description: 'Project deleted successfully',
       });
     } catch (error) {
-      toast({
-        title: 'Error',
+      toast.error('Error', {
         description: error.response?.data?.message || 'Delete failed',
-        variant: 'destructive',
       });
     }
   };

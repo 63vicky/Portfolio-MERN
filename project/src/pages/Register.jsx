@@ -1,7 +1,13 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -25,7 +31,10 @@ function Register() {
     setLoading(true);
 
     try {
-      const response = await axios.post(`${import.meta.env.VITE_API_URL}/auth/register`, formData);
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_URL}/auth/register`,
+        formData
+      );
       dispatch(setCredentials(response.data));
       toast({
         title: 'Success',
@@ -52,7 +61,9 @@ function Register() {
       <Card className="w-full max-w-md">
         <CardHeader>
           <CardTitle>Register</CardTitle>
-          <CardDescription>Create a new account to showcase your projects</CardDescription>
+          <CardDescription>
+            Create a new account to showcase your projects
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">

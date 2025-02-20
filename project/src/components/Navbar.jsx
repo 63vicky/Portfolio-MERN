@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { Menu, X, Code2, User } from 'lucide-react';
+import { Menu, X, Code2, User, Moon, Sun } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { logout } from '@/store/slices/authSlice';
 
-function Navbar() {
+function Navbar({ toggleTheme, theme }) {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -35,15 +35,24 @@ function Navbar() {
 
           {/* Desktop Menu */}
           <div className="hidden md:flex md:items-center md:space-x-4">
-            <Link to="/" className="text-foreground hover:text-muted-foreground px-3 py-2">
+            <Link
+              to="/"
+              className="text-foreground hover:text-muted-foreground px-3 py-2"
+            >
               Home
             </Link>
-            <Link to="/projects" className="text-foreground hover:text-muted-foreground px-3 py-2">
+            <Link
+              to="/projects"
+              className="text-foreground hover:text-muted-foreground px-3 py-2"
+            >
               Projects
             </Link>
             {isAuthenticated ? (
               <>
-                <Link to="/dashboard" className="text-foreground hover:text-muted-foreground px-3 py-2">
+                <Link
+                  to="/dashboard"
+                  className="text-foreground hover:text-muted-foreground px-3 py-2"
+                >
                   Dashboard
                 </Link>
                 <Button variant="ghost" onClick={handleLogout}>
@@ -60,17 +69,45 @@ function Navbar() {
                 </Button>
               </>
             )}
+            <Button
+              variant="outline"
+              size="icon"
+              className=" right-4 top-4 z-50 rounded-full hover:scale-110 transition-transform"
+              onClick={toggleTheme}
+            >
+              {theme === 'light' ? (
+                <Moon className="h-[1.2rem] w-[1.2rem] rotate-90 scale-100 transition-all dark:rotate-0 dark:scale-0" />
+              ) : (
+                <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:rotate-90 dark:scale-100" />
+              )}
+            </Button>
           </div>
 
           {/* Mobile menu button */}
-          <div className="md:hidden flex items-center">
+          <div className="md:hidden flex items-center gap-2">
             <Button
               variant="ghost"
               size="icon"
               onClick={() => setIsOpen(!isOpen)}
               aria-label="Toggle menu"
             >
-              {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              {isOpen ? (
+                <X className="h-6 w-6" />
+              ) : (
+                <Menu className="h-6 w-6" />
+              )}
+            </Button>
+            <Button
+              variant="outline"
+              size="icon"
+              className="right-4 top-4 z-50 rounded-full hover:scale-110 transition-transform"
+              onClick={toggleTheme}
+            >
+              {theme === 'light' ? (
+                <Moon className="h-[1.2rem] w-[1.2rem] rotate-90 scale-100 transition-all dark:rotate-0 dark:scale-0" />
+              ) : (
+                <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-0 transition-all dark:rotate-90 dark:scale-100" />
+              )}
             </Button>
           </div>
         </div>
